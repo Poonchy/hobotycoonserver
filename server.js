@@ -61,7 +61,7 @@ server.put("/users:id", (req, res)=>{
 })
 
 server.use("*",(_,res)=>{
-    res,status(404).json({"message":"No endpoint found."})
+    res.status(404).json({"message":"No endpoint found."})
 })
 
 const PORT = process.env.PORT || 5000
