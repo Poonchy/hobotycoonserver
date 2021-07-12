@@ -30,7 +30,7 @@ server.post("/users", (req, res)=>{
 server.get("/users/:id", (req, res)=>{
     id = req.params.id
     client.connect();
-    query = `SELECT * FROM Users WHERE ${{id}};`
+    query = `SELECT * FROM Users WHERE id = '${id}'};`
     client.query(query)
     .then((data)=>{
         client.end();
