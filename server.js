@@ -49,6 +49,23 @@ server.get("/users/:id", (req, res)=>{
     })
 })
 
+server.get("/users", (req, res)=>{
+    username = req.body.username
+    client = createServer()
+    client.connect();
+    query = `SELECT * FROM Users WHERE username = '${username}';`
+    client.query(query)
+    .then((data)=>{
+        client.end();
+        res.status(200).json(data)
+    })
+    .catch((err)=>{
+        console.log(err)
+        client.end();
+        res.status(400).json(err)
+    })
+})
+
 server.put("/users/:id", (req, res)=>{
     const secondsSinceEpoch = Math.round(Date.now() / 1000)
     id = req.params.id
