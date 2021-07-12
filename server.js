@@ -60,10 +60,6 @@ server.put("/users:id", (req, res)=>{
     })
 })
 
-server.use("*",(_,res)=>{
-    res.status(404).json({"message":"No endpoint found."})
-})
-
 const PORT = process.env.PORT || 5000
 server.listen(PORT, ()=>{
     console.log(`Listening on port 5000`)
