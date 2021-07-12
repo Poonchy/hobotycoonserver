@@ -27,7 +27,7 @@ server.post("/users", (req, res)=>{
     })
 })
 
-server.get("/users:id", (req, res)=>{
+server.get("/users/:id", (req, res)=>{
     id = req.params.id
     client.connect();
     query = `SELECT * FROM Users WHERE ${{id}};`
@@ -43,7 +43,7 @@ server.get("/users:id", (req, res)=>{
     })
 })
 
-server.put("/users:id", (req, res)=>{
+server.put("/users/:id", (req, res)=>{
     id = req.params.id
     user = req.body
     client.connect();
