@@ -3,18 +3,23 @@ const server = express()
 require('dotenv').config()
 
 const { Client } = require('pg');
-console.log(process.env.DATABSE_URL)
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
+function createServer() {
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          rejectUnauthorized: false
+        }
+    });
+    return client
+}
 
+server.use(express.json());
 server.post("/users", (req, res)=>{
+    const secondsSinceEpoch = Math.round(Date.now() / 1000)
     user = req.body
+    client = createServer()
     client.connect();
-    query = `INSERT INTO Users ${{user}};`
+    query = `INSERT INTO Users (username, password, lastupdated) VALUES ('${user.username}', '${user.password}', '${secondsSinceEpoch}');`
     client.query(query)
     .then((data)=>{
         client.end();
@@ -29,8 +34,9 @@ server.post("/users", (req, res)=>{
 
 server.get("/users/:id", (req, res)=>{
     id = req.params.id
+    client = createServer()
     client.connect();
-    query = `SELECT * FROM Users WHERE id = '${id}'};`
+    query = `SELECT * FROM Users WHERE id = '${id}';`
     client.query(query)
     .then((data)=>{
         client.end();
@@ -44,10 +50,12 @@ server.get("/users/:id", (req, res)=>{
 })
 
 server.put("/users/:id", (req, res)=>{
+    const secondsSinceEpoch = Math.round(Date.now() / 1000)
     id = req.params.id
     user = req.body
+    client = createServer()
     client.connect();
-    query = `UPDATE Users SET ${{user}} WHERE ${{id}};`
+    query = `UPDATE Users SET food = '${user.food}', scrap = '${user.scrap}', foodrac = '${user.foodrac}', scraprac = '${user.scraprac}', tech = '${user.tech}', lastupdated = '${secondsSinceEpoch}' WHERE id = '${id}';`
     client.query(query)
     .then((data)=>{
         client.end();
