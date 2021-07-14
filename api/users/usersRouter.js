@@ -34,10 +34,13 @@ router.post('/', MW.verifyLogin, function (req, res) {
         });
 });
 
-router.get("/gim", function(req, res) {
-    Users.findAll()
+router.put("/", function(req, res) {
+    Users.Update(req.body)
     .then((data)=>{
         res.status(200).json(data)
+    })
+    .catch((err)=>{
+        res.status(500).json(data)
     })
 })
 

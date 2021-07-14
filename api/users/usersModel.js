@@ -13,4 +13,8 @@ const Signup = function(user){
     return db('users').insert(user)
 }
 
-module.exports = {findAll, Login, Signup}
+const Update = function(user){
+    return db('users').update(user).where({id:user.id})
+}
+
+module.exports = {findAll, Login, Signup, Update}
