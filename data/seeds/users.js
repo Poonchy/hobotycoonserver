@@ -5,7 +5,7 @@ exports.seed = function(knex) {
   return knex('users').del()
     .then(function () {
       return knex('users').insert([
-        {username: 'Temi', password: crypto.createHash('sha256').update("1234").digest('base64'), food:0, scrap:0, lastupdated:secondsSinceEpoch},
+        {username: 'Temi', password: crypto.createHash('sha256').update("1234").digest('base64'), lastupdated:secondsSinceEpoch},
       ]);
     });
 };

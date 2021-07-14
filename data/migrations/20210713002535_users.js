@@ -7,8 +7,10 @@ exports.up = function(knex) {
         .unique();
         table.string('password')
         .notNull();
-        table.integer('food');
-        table.integer('scrap');
+        table.integer('food')
+        .defaultTo(0);
+        table.integer('scrap')
+        .defaultTo(0);
         table.integer('lastupdated')
         .notNull();
     });
