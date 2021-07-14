@@ -51,7 +51,7 @@ router.put("/", function(req, res) {
         res.status(200).json("Updated succesfully")
     })
     .catch((err)=>{
-        res.status(500).json(data)
+        res.status(500).json(err)
     })
 })
 
