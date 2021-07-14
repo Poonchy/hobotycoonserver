@@ -25,7 +25,7 @@ router.get('/', MW.verifyLogin, function (req, res) {
         });
 });
 
-router.post('/', MW.verifyLogin, function (req, res) {
+router.post('/', MW.verifySignup, function (req, res) {
     const secondsSinceEpoch = Math.round(Date.now() / 1000)
     user = req.body
     user.lastupdated = secondsSinceEpoch
@@ -42,7 +42,7 @@ router.post('/', MW.verifyLogin, function (req, res) {
         });
 });
 
-router.put("/", function(req, res) {
+router.put("/", MW.verifyUpdate, function(req, res) {
     const secondsSinceEpoch = Math.round(Date.now() / 1000)
     user = req.body
     user.lastupdated = secondsSinceEpoch
